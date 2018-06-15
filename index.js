@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 
-const TOKEN = "NOPE";
-const PREFIX = "~"
+const TOKEN = "NDU0Nzk1NjEzNzc5Nzg3Nzk2.Dfypjg.FIBnCG4zKpEXcdN-N5xblPpgQI8";
+const PREFIX = "&"
 
 function generateHex() {
     return "#" + Math.floor(Math.random() * 16777215).toString(16);
@@ -57,15 +57,8 @@ var bot = new Discord.Client();
 var servers = {};
 
 bot.on("ready", function() {
-     console.log("Ready! 👍");
-     bot.user.setActivity("Do ~help for help! ***(YAY)***");
-});
-
-bot.on('messageDelete', msg => {
-
-    if(msg.author.presence.status === "offline") {
-      console.log('Offline user chat detected.');
-    }
+     console.log("FlameSpy is running with "+bot.users.size+" users in "+bot.channels.size+" channels of "+bot.guilds.size+" guilds! 👍");
+     bot.user.setActivity("Do &help for help!");
 });
 
 bot.on("message", function(message) {
@@ -77,18 +70,17 @@ bot.on("message", function(message) {
 
      switch (args[0].toLowerCase()) {
           case "ping":
-             message.channel.send("Bot is running! ✅");
-             message.react("✅");
+             message.channel.send("FlameSpy is running with "+bot.users.size+" users in "+bot.channels.size+" channels of "+bot.guilds.size+" guilds! 👍");
              break;
           case "help":
              var embed = new Discord.RichEmbed()
                  .setTitle(":boom: ***FlameSpy Bot Commands*** :boom:")
-                 .setDescription("***The PREFIX is*** *~*")
+                 .setDescription("***The PREFIX is*** &")
                  .addField(" - *help*", "Commands list")
                  .addField(" - *info*", "Bot Information including when it was made, where and what it does.")
                  .addField(" - *ping*", "Bot status")
                  .addField(" - *status*", "Bot status")
-                 .addField(" - *fortune*", "A fortune teller command ***HOW TO USE :*** **Eg. ~fortune Am I butiful?**")
+                 .addField(" - *fortune*", "A fortune teller command ***HOW TO USE :*** **Eg. &ortune Am I butiful?**")
                  .addField(" - *embed*", "Makes a embed with your discord icon **(Still W.I.P)**")
                  .addField(" - *randomhex*", "Generates a random hex colour code")
                  .addField(" - *genhex*", "Generates a random hex colour code")
@@ -97,18 +89,16 @@ bot.on("message", function(message) {
                  .setFooter("Made by FlameSpy")
                  .setThumbnail("https://i.imgur.com/pcTjwPz.png")
              message.author.send(embed).catch(console.error); 
+             message.channel.send("Sent to your DM's!")
       break;  
           case "info":
              message.channel.send(":boom: ***FlameSpy Bot Info*** :boom: \n When was I made? : The 8th of June 2018 \n Where were you made? : Australia \n What do you do? : At the moment not much, but soon alot more!\n Who made you? : NOOB-DERPYFOUR#7141 (A.K.A Your Mom)")
-             message.react("✅");
              break;
           default:
-             message.channel.send("Invalid command 🚫 \n Use ~help to see valid commands.") 
-             message.react("✅");
+             message.channel.send("Invalid command 🚫 \n Use &help to see valid commands.")
              break;
           case "status":
-             message.channel.send("Bot is running! ✅");
-             message.react("✅");
+             message.channel.send("FlameSpy is running with "+bot.users.size+" users in "+bot.channels.size+" channels of "+bot.guilds.size+" guilds! 👍");
              break;
           case "fortune":
               if (args[1]) message.channel.send(fortunes[Math.floor(Math.random() * fortunes.length)]);
@@ -124,12 +114,24 @@ bot.on("message", function(message) {
               message.channel.send(meme[Math.floor(Math.random() * meme.length)]);
               break;
           case "embed":
-              message.channnel.send("W.I.P (For a long time)")
+              var arguments = message.contents.split('|');
+              if(arguments && arguments.length == 3){
+                var embed = new Discord.RichEmbed();
+                    embed.setTitle(arguments[0]);
+                    embed.setDescription(arguments[1]);
+                    embed.setColor(arguments[2]);
+                    embed.setFooter("Thanks to Luke! ")
+              message.author.send(embed)
+              message.channel.send("Sent to your DM's!")
+            } else {
+                message.channel.send("You need to put in the arguments! **Eg.** &embed Title|Description|Colour.\n ***Also If your colour isnt a #FFF000 or something simular it won't work.***");
+            }
               break;
           case "setnick":
               if (args[1]) message.member.setNickname(args[1]);
               break;
           case "":
+              break;
      };
 });
 
