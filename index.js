@@ -1,6 +1,6 @@
 const Discord = require("discord.js");
 
-const TOKEN = "NDU0Nzk1NjEzNzc5Nzg3Nzk2.Dfypjg.FIBnCG4zKpEXcdN-N5xblPpgQI8";
+const TOKEN = "NOPE";
 const PREFIX = "&"
 
 function generateHex() {
